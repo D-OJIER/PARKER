@@ -4,32 +4,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login or Sign Up</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="C:\Users\reijo\Documents\Visual Studios Codes\01\common.css">
 </head>
 <body>
-    <div class="container">
-        <form id="login-form">
-            <h1>Login</h1>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <button type="submit">Login</button>
-        </form>
+    <div id="login-container">
+        <h1>Login</h1>
 
-        <div class="separator"></div>
+        <!-- User type options -->
+        <div>
+            <label for="user-type">Select User Type:</label>
+            <select id="user-type" name="user-type" class="scrollable-options">
+                <option value="user">User</option>
+                <option value="renter">Renter</option>
+            </select>
+        </div>
 
-        <form id="signup-form">
-            <h1>Sign Up</h1>
-            <label for="new-username">New Username:</label>
-            <input type="text" id="new-username" name="new-username" required>
-            <label for="new-password">New Password:</label>
-            <input type="password" id="new-password" name="new-password" required>
-            <button type="submit">Sign Up</button>
-        </form>
+        <!-- Authentication options (login or sign-up) -->
+        <div>
+            <label for="auth-options">Choose an Option:</label>
+            <select id="auth-options" name="auth-options" class="scrollable-options">
+                <option value="login">Login</option>
+                <option value="signup">Sign Up</option>
+            </select>
+        </div>
+
+        <!-- Additional login form fields go here (e.g., username, password) -->
+
+        <!-- Login button -->
+        <button id="login-button">Login</button>
     </div>
 
-    <script src="login.js"></script>
+    <script src="C:\Users\reijo\Documents\Visual Studios Codes\01\common.js"></script>
+    <!-- Additional scripts as needed -->
 </body>
 </html>

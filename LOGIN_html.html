@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello there!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Welcome Page -->
+    <div class="container" id="welcome-container">
+        <h1><marquee>🚕</marquee></h1>
+        <h1>Name_the_damn_app</h1>
+        <p>Welcome!<p>
+        <p>Continue to find yourself a parking spot.</p>
+        <button class="small-btn" onclick="goToLoginPage()">Continue</button>
+    </div>
+
+    <!-- Sign In / Sign Up Page -->
+    <div class="container" style="display: none;" id="login-container">
+        <h2>Hello there!</h2>
+        <div class="toggle-buttons">
+            <button class="toggle-btn" onclick="showSignIn()">Sign In</button>
+            <button class="toggle-btn" onclick="showSignUp()">Sign Up</button>
+        </div>
+
+        <div class="sign-in-form">
+            <label for="signin-username">Username</label>
+            <input type="text" id="signin-username" name="signin-username" required>
+
+            <label for="signin-password">Password</label>
+            <input type="password" id="signin-password" name="signin-password" required>
+
+            <button class="small-btn" onclick="signIn()">Sign In</button>
+        </div>
+
+        <div class="sign-up-form">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" name="signup-username" required>
+
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="signup-password" required>
+
+            <button class="small-btn" onclick="signUp()">Sign Up</button>
+        </div>
+
+        <div class="contact-info-container">
+            <div class="contact-info">
+                <b> Any Queries?</b><br>
+                <div class="contact-box">
+                    <div class="contact-icons">
+                        <span onclick="callPhoneNumber('9876543210')">📞: 9876543210</span>
+                        <span onclick="sendEmail('mail@gmail.com')">📧: mail@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

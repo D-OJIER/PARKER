@@ -1,0 +1,101 @@
+body {
+    font-family: 'Times New Roman', serif;
+    background-color: black;
+    color: silver;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #292929;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+h1,
+h2 {
+    color: gold;
+}
+
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.toggle-btn {
+    background-color: gold;
+    color: black;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.2s;
+}
+
+.toggle-btn:hover {
+    transform: scale(1.1);
+}
+
+.sign-in-form,
+.sign-up-form {
+    display: none;
+}
+
+label,
+input,
+button {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contact-info-container {
+    margin-top: 20px;
+    color: gold;
+    border-top: 1px solid gold;
+    padding-top: 20px;
+}
+
+.contact-box {
+    border: 1px solid gold;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.contact-icons span {
+    margin-right: 5px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Additional styles for the second page */
+.small-btn {
+    background-color: gold;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.small-btn:hover {
+    transform: scale(1.1);
+}

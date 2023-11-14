@@ -1,97 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Map Page</title>
-  <link rel="stylesheet" href="C:\Users\reijo\Documents\Visual Studios Codes\01\map\v8.1.0-package\ol.css">
-  <style>
-    /* Ensure the map container has dimensions */
-    #map {
-      width: 100%;
-      height: 400px; /* Adjust the height as needed */
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenLayers Map Search</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    <link rel="stylesheet" href="map_slection.css">
+
 </head>
 <body>
-  <!-- Your existing content for instant and future booking goes here -->
+     <!-- Search input and buttons -->
+    <input type="text" id="locationSearch" placeholder="Search for a location">
+    <button onclick="searchLocation()">Search Location</button>
+    <button onclick="useCurrentLocation()">Use Current Location</button>
 
-  <!-- Add a divider or section break if needed -->
-  <hr>
+    <!-- Map container -->
+    <div id="map" style="width: 100%; height: 500px;"></div>
 
-  <!-- Map container -->
-  <div id="map" class="map"></div>
+    <script src="map.js"></script>
 
-  <!-- OpenLayers map script -->
-  <script src="C:\Users\reijo\Documents\Visual Studios Codes\01\map\v8.1.0-package\dist\ol.js"></script>
-  <script>
-    const map = new ol.Map({
-      target: 'map',
-      layers: [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
-      ],
-      view: new ol.View({
-        center: ol.proj.fromLonLat([0, 0]),
-        zoom: 2
-      })
-    });
+    
 
-    // Adding marked locations as features
-    const locations = [
-      { coordinates: [0, 0], name: 'Location A' },
-      { coordinates: [10, 10], name: 'Location B' },
-      { coordinates: [-10, -10], name: 'Location C' }
-    ];
-
-    const markerFeatures = locations.map(location => {
-      const marker = new ol.Feature({
-        geometry: new ol.geom.Point(ol.proj.fromLonLat(location.coordinates)),
-        name: location.name
-      });
-
-      return marker;
-    });
-
-    // Adding vector layer for markers
-    const vectorSource = new ol.source.Vector({
-      features: markerFeatures
-    });
-
-    const vectorLayer = new ol.layer.Vector({
-      source: vectorSource
-    });
-
-    map.addLayer(vectorLayer);
-
-    // Adding interaction to detect nearby features
-    const select = new ol.interaction.Select({
-      layers: [vectorLayer],
-      style: new ol.style.Style({
-        image: new ol.style.Circle({
-          radius: 10,
-          fill: new ol.style.Fill({
-            color: 'rgba(255, 0, 0, 0.2)'
-          }),
-          stroke: new ol.style.Stroke({
-            color: 'red',
-            width: 2
-          })
-        })
-      })
-    });
-
-    map.addInteraction(select);
-
-    // Handling selection event
-    select.on('select', event => {
-      if (event.selected.length > 0) {
-        const selectedFeature = event.selected[0];
-        const name = selectedFeature.get('name');
-        alert(`You are near ${name}`);
-      }
-    });
-  </script>
+    
+<div class="section">
+    <div class="instant-booking" onclick="selectOption('instant-booking')">Instant Booking</div>
+    <div class="reservation" onclick="selectOption('reservation')">Reservation</div>
+</div>
+    
 </body>
 </html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Information Page</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: black;
+            color: silver;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #292929;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            width: 800px; /* Adjust the width as needed */
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        h2 {
+            color: gold;
+        }
+
+        #back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: gold;
+            color: black;
+            padding: 6px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #back-btn:hover {
+            transform: scale(1.1);
+        }
+
+        #toggle-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            background-color: gold;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .renter-options button {
+            background-color: gold;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+
+        .renter-options button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Rental Information Page -->
+    <div class="container" id="rental-info-container">
+        <button id="back-btn" onclick="goBack()">Back</button>
+        <div id="toggle-buttons">
+            <button class="toggle-btn" onclick="showUserForm()">User</button>
+            <button class="toggle-btn" onclick="showRenterForm()">Renter</button>
+        </div>
+        <h2>Rental Information Page</h2>
+
+        <!-- User Information -->
+        <div id="user-form">
+            <h3>Rent Out Your Place</h3>
+            <!-- Add your form elements for renting out a place here -->
+            <label for="pincode">Pincode:</label>
+            <input type="text" id="pincode" name="pincode" required>
+
+            <label for="street">Street Name:</label>
+            <input type="text" id="street" name="street" required>
+
+            <label for="area">Area:</label>
+            <input type="text" id="area" name="area" required>
+
+            <label for="dimensions">Dimensions:</label>
+            <input type="text" id="dimensions" name="dimensions" required>
+
+            <label for="timings">Timings:</label>
+            <input type="text" id="timings" name="timings" required>
+
+            <label for="emergency-contact">Emergency Contact:</label>
+            <input type="tel" id="emergency-contact" name="emergency-contact" required>
+
+            <label for="upload-images">Upload Images (Up to 5):</label>
+            <input type="file" id="upload-images" name="upload-images" accept=".png, .jpg, .jpeg, .pdf" multiple required>
+
+            <button onclick="saveUserSpot()">Save Spot</button>
+        </div>
+
+        <!-- Renter Information -->
+        <div id="renter-form" style="display: none;">
+            <h3>Rent a Place</h3>
+            <!-- Add your form elements for renting a place here -->
+            <label for="vehicle-type">Vehicle Type:</label>
+            <input type="text" id="vehicle-type" name="vehicle-type" required>
+
+            <label for="registration-number">Registration Number:</label>
+            <input type="text" id="registration-number" name="registration-number" required>
+
+            <label for="renter-emergency-contact">Emergency Contact:</label>
+            <input type="tel" id="renter-emergency-contact" name="renter-emergency-contact" required>
+
+            <label for="vehicle-dimensions">Vehicle Dimensions:</label>
+            <input type="text" id="vehicle-dimensions" name="vehicle-dimensions" required>
+
+            <label for="upload-vehicle-images">Upload Images (Up to 4):</label>
+            <input type="file" id="upload-vehicle-images" name="upload-vehicle-images" accept=".png, .jpg, .jpeg" multiple required>
+
+            <button onclick="saveRenterVehicle()">Save Vehicle</button>
+        </div>
+
+        <!-- Page to choose a name and save the spot or vehicle -->
+        <div id="save-name-page" style="display: none;">
+            <h3>Choose a Name</h3>
+            <label for="spot-name">Enter a Name:</label>
+            <input type="text" id="spot-name" name="spot-name" required>
+            <button onclick="saveSpotOrVehicle()">Save</button>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            // Redirect back to the login page
+            window.location.href = 'file:///C:/Users/91984/OneDrive/Desktop/TECHNOTEEN/index.html'; // Adjust the login page URL accordingly
+        }
+
+        function showUserForm() {
+            document.getElementById('user-form').style.display = 'block';
+            document.getElementById('renter-form').style.display = 'none';
+        }
+
+        function showRenterForm() {
+            document.getElementById('user-form').style.display = 'none';
+            document.getElementById('renter-form').style.display = 'block';
+        }
+
+        function saveUserSpot() {
+            // Add logic to save user spot information
+            // For simplicity, displaying the save-name-page directly
+            document.getElementById('rental-info-container').style.display = 'none';
+            document.getElementById('save-name-page').style.display = 'block';
+        }
+
+        function saveRenterVehicle() {
+            // Add logic to save renter vehicle information
+            // For simplicity, displaying the save-name-page directly
+            document.getElementById('rental-info-container').style.display = 'none';
+            document.getElementById('save-name-page').style.display = 'block';
+        }
+
+        function saveSpotOrVehicle() {
+            // Add logic to save the spot or vehicle with the chosen name
+            alert('Spot or Vehicle saved with the chosen name!');
+            // Redirect to the user details page or renter details page as needed
+            // For simplicity, redirecting back to the rental information page
+            window.location.href = 'rental-info.html';
+        }
+
+        // Function to navigate to the Save Spot page
+        function navigateToSaveSpot() {
+            window.location.href = 'file:///C:/Users/91984/OneDrive/Desktop/TECHNOTEEN/save-spot.html'; // Adjust the page URL accordingly
+        }
+
+        // Function to navigate to the Save Vehicle page
+        function navigateToSaveVehicle() {
+            window.location.href = 'file:///C:/Users/91984/OneDrive/Desktop/TECHNOTEEN/save-vehicle.html'; // Adjust the page URL accordingly
+        }
+
+        // Add more functions as needed
+    </script>
+
+</body>
+
+</html>

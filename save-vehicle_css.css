@@ -1,0 +1,49 @@
+body {
+    font-family: 'Times New Roman', serif;
+    background-color: black;
+    color: silver;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Add your Save Vehicle page styles here */
+h2 {
+    color: gold;
+}
+
+form {
+    background-color: #292929;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+label,
+input,
+button {
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: gold;
+    color: black;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}

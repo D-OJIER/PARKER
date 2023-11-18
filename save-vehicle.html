@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Vehicle</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: black;
+            color: silver;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Add your Save Vehicle page styles here */
+        h2 {
+            color: gold;
+        }
+
+        form {
+            background-color: #292929;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            width: 400px;
+            text-align: center;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        label,
+        input,
+        button {
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: gold;
+            color: black;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Save Vehicle</h2>
+
+    <!-- Form to choose a name for the vehicle -->
+    <form>
+        <label for="vehicle-name">Choose a name for the vehicle:</label>
+        <input type="text" id="vehicle-name" name="vehicle-name" required>
+
+        <!-- Add more fields as needed -->
+
+        <button onclick="saveVehicle()">Save Vehicle</button>
+        <button onclick="saveMoreVehicles()">Save More Vehicles</button>
+        <button onclick="continueToNextPage()">Continue</button>
+    </form>
+
+    <script>
+        function saveVehicle() {
+            // Add logic to save the vehicle
+            alert('Vehicle saved successfully!');
+        }
+
+        function saveMoreVehicles() {
+            var vehicleName = document.getElementById('vehicle-name').value;
+
+          
+                // Redirect to the renter-info.html page
+                window.location.href = 'rental-info.html'; // Adjust the page URL accordingly
+            }
+        
+
+        function continueToNextPage() {
+            // Add logic to link to the next page or perform other actions
+            alert('Continue to the next page...');
+        }
+    </script>
+
+</body>
+
+</html>

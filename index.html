@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello there!</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: black;
+            color: silver;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #292929;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            width: 800px; /* Double the original width */
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        h1,
+        h2 {
+            color: gold;
+        }
+
+        .toggle-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            background-color: gold;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+
+        .toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .sign-in-form,
+        .sign-up-form {
+            display: none;
+        }
+
+        label,
+        input,
+        button {
+            margin-top: 10px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .contact-info-container {
+            margin-top: 20px;
+            color: gold;
+            border-top: 1px solid gold;
+            padding-top: 20px;
+        }
+
+        .contact-box {
+            border: 1px solid gold;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .contact-icons span {
+            margin-right: 5px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        /* Additional styles for the second page */
+        .small-btn {
+            background-color: gold;
+            color: black;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .small-btn:hover {
+            transform: scale(1.1);
+        }
+
+        #back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: gold;
+            color: black;
+            padding: 6px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #back-btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Welcome Page -->
+    <div class="container" id="welcome-container">
+        <h1><marquee>🚕</marquee></h1>
+        <h1>Name_the_damn_app</h1>
+        <p>Choose an option to continue:</p>
+        <button class="small-btn" onclick="continueAs('user')">Continue as User</button>
+        <button class="small-btn" onclick="continueAs('renter')">Continue as Renter</button>
+    </div>
+
+    <!-- Sign In / Sign Up Page -->
+    <div class="container" style="display: none;" id="login-container">
+        <h2 id="hello-text">Hello there!</h2>
+        <button id="back-btn" onclick="goBack()">Back</button>
+        <div class="toggle-buttons">
+            <button class="toggle-btn" onclick="showSignIn()">Sign In</button>
+            <button class="toggle-btn" onclick="showSignUp()">Sign Up</button>
+        </div>
+
+        <div class="sign-in-form">
+            <label for="signin-username">Username</label>
+            <input type="text" id="signin-username" name="signin-username" required>
+
+            <label for="signin-password">Password</label>
+            <input type="password" id="signin-password" name="signin-password" required>
+
+            <button class="small-btn" onclick="signIn()">Sign In</button>
+        </div>
+
+        <div class="sign-up-form">
+            <label for="signup-username">Username</label>
+            <input type="text" id="signup-username" name="signup-username" required>
+
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" name="signup-password" required>
+
+            <label for="signup-name">Name</label>
+            <input type="text" id="signup-name" name="signup-name" required>
+
+            <label for="signup-phone">Phone Number</label>
+            <input type="tel" id="signup-phone" name="signup-phone" required>
+
+            <label for="signup-email">Email (Optional)</label>
+            <input type="email" id="signup-email" name="signup-email">
+
+            <button class="small-btn" onclick="signUp()">Sign Up</button>
+        </div>
+
+        <div class="contact-info-container">
+            <div class="contact-info">
+                <b> Any Queries?</b><br>
+                <div class="contact-box">
+                    <div class="contact-icons">
+                        <span onclick="callPhoneNumber('9876543210')">📞: 9876543210</span>
+                        <span onclick="sendEmail('mail@gmail.com')">📧: mail@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function continueAs(userType) {
+            document.getElementById('welcome-container').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+            document.getElementById('hello-text').innerText = `Hello there! ${userType.charAt(0).toUpperCase() + userType.slice(1)}`;
+        }
+
+        function showSignIn() {
+            document.querySelector('.sign-in-form').style.display = 'block';
+            document.querySelector('.sign-up-form').style.display = 'none';
+        }
+
+        function showSignUp() {
+            document.querySelector('.sign-up-form').style.display = 'block';
+            document.querySelector('.sign-in-form').style.display = 'none';
+        }
+
+        function signIn() {
+            const username = document.getElementById('signin-username').value;
+            const password = document.getElementById('signin-password').value;
+
+            if (username === '' || password === '') {
+                alert("Please enter both username and password.");
+            } else {
+                // Perform sign-in logic or handle the data as needed
+                alert(`Sign In:\nUsername: ${username}\nPassword: ${password}`);
+                redirectToRentalInfo('user');
+            }
+        }
+
+        function signUp() {
+            const username = document.getElementById('signup-username').value;
+            const password = document.getElementById('signup-password').value;
+            const name = document.getElementById('signup-name').value;
+            const phone = document.getElementById('signup-phone').value;
+            const email = document.getElementById('signup-email').value;
+
+            if (username === '' || password === '' || name === '' || phone === '') {
+                alert("Please enter all required fields.");
+            } else {
+                // Perform sign-up logic or handle the data as needed
+                alert(`Sign Up:\nUsername: ${username}\nPassword: ${password}\nName: ${name}\nPhone: ${phone}\nEmail: ${email}`);
+                redirectToRentalInfo('user');
+            }
+        }
+
+        function redirectToRentalInfo(userType) {
+            // Redirect to the rental information page based on user type
+            window.location.href = `rental-info.html?userType=${userType}`;
+        }
+
+        function callPhoneNumber(phoneNumber) {
+            window.location.href = `tel:${phoneNumber}`;
+        }
+
+        function sendEmail(emailAddress) {
+            window.location.href = `mailto:${emailAddress}`;
+        }
+
+        function goBack() {
+            document.getElementById('welcome-container').style.display = 'block';
+            document.getElementById('login-container').style.display = 'none';
+        }
+    </script>
+
+</body>
+
+</html>

@@ -46,3 +46,56 @@ button {
     opacity: 0.5; /* Adjust the opacity as needed */
     transition: opacity 0.3s ease; /* Transition for smooth fade effect */
 }
+
+body{
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+#dataList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-item {
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.list-item i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+/* Add a max-height and overflow-y property to the list container */
+#instantBookingList,
+#reservationList {
+    max-height: 500px; /* Set a maximum height for the container */
+    overflow-y: auto; /* Add a vertical scrollbar if needed */
+    border: 8px solid #ffd700; /* Gold border */
+    background-color: #000; /* Black background */
+    color: #ffd700; /* Gold text color */
+}
+
+/* Style for list items */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd; /* Add a border between list items */
+}
+
+/* Optional: Hover effect for list items */
+li:hover {
+    background-color: #222; /* Darker black background on hover */
+}

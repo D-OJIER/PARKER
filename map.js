@@ -6,8 +6,8 @@ var map = new ol.Map({
         }),
     ],
     view: new ol.View({
-        center: ol.proj.fromLonLat([79, 13]),
-        zoom: 7.9,
+        center: ol.proj.fromLonLat([80.3, 13.1]),
+        zoom: 11,
     }),
 });
 
@@ -43,6 +43,14 @@ function useCurrentLocation() {
         alert("Geolocation is not supported by your browser");
     }
 }
+function getLatLon(event) {
+    var coordinate = event.coordinate;
+
+    // Display the coordinates in the console (you can customize this part)
+    console.log('Latitude:', coordinate[1]);
+    console.log('Longitude:', coordinate[0]);
+}
+
 
 function selectOption(option) {
     var instantBooking = document.querySelector('.instant-booking');
@@ -56,3 +64,60 @@ function selectOption(option) {
         instantBooking.classList.remove('fade');
     }
 }
+
+function addMarker(lon, lat, markerText) {
+    var marker = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
+        name: markerText,
+    });
+
+    var markerStyle = new ol.style.Style({
+        image: new ol.style.Icon({
+            src: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png', // You can use your own marker icon
+            scale: 0.05, // Adjust the scale as needed
+        }),
+    });
+    
+
+    marker.setStyle(markerStyle);
+
+    var vectorSource = new ol.source.Vector({
+        features: [marker],
+    });
+
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+    });
+
+    marker.setStyle(markerStyle);
+
+    // Create vector source and layer
+    var vectorSource = new ol.source.Vector({
+        features: [marker],
+    });
+
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+    });
+
+    // Add the vector layer to the map
+    map.addLayer(vectorLayer);
+
+    // Display marker information in HTML
+    var markerInfoContainer = document.getElementById('markerInfo');
+
+    marker.on('click', function (event) {
+        var coordinate = marker.getGeometry().getCoordinates();
+        var markerName = marker.get('name');
+
+        // Create a div element to display marker information
+        var markerInfo = document.createElement('div');
+        markerInfo.innerHTML = '<b>Marker Name:</b> ' + markerName + '<br><b>Coordinates:</b> ' + coordinate + '<br><b>AVAILABILITY:</b> YES';
+
+        // Append the marker information to the 'markerInfo' container
+        markerInfoContainer.appendChild(markerInfo);
+    });
+}
+
+addMarker(80.23,13.06,'Licet');
+addMarker(-74.006, 40.7128, 'Marker 2');

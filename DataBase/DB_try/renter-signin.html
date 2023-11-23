@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renter Sign In</title>
+    <style>
+        body {
+            background-color: black;
+            color: silver;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            border: 2px solid gold;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: inline-block;
+            padding: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            color: gold;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: gold;
+            color: black;
+        }
+
+        h1 {
+            color: gold;
+        }
+
+        .form-container {
+            text-align: left;
+            margin-top: 20px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-input {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-button {
+            background-color: gold;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: black;
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="renter.html" class="back-button">&#9666; Back</a>
+        <h1>Renter Sign In</h1>
+
+        <!-- Sign In Form -->
+        <div class="form-container">
+            <form action="renter-signin-handler" method="post">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-input" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="form-input" required>
+
+                <button type="submit" class="form-button">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

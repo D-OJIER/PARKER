@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GETTING PARKER APP DONE</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+    
+</head>
+<style>
+    body {
+    background-color: #000; /* Black background */
+    color: #FFD700; /* Yellow text color */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
+}
+
+input[type="text"], button {
+    padding: 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    background-color: #000; /* Black input background */
+    color: #FFD700; /* Yellow text color */
+}
+
+button {
+    background-color: #FFD700; /* Yellow button background */
+    color: #000; /* Black text color */
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #000; /* Darker black background on hover */
+    color:#FFD700;
+}
+
+
+#markerInfoPopup{
+    background-color: #000; /* Background color */
+    border: 5px solid #FFD700;
+    padding: 35px; /* Padding inside the pop-up */
+    max-width: 400px; /* Maximum width of the pop-up */
+    font-size: 25px; /* Font size */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+    position: fixed;
+    bottom: 100px; /* Distance from the bottom of the screen */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button {
+    margin: 10px; /* Margin between buttons */
+    padding:  30px 25px; /* Padding inside the buttons */
+    background-color: #FFD700; /* Button background color */
+    color: #000; /* Button text color */
+    border: none;
+    border-radius: 5px; /* Border radius for rounded corners */
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #0000; /* Button background color on hover */
+}
+
+
+    body {
+        background-image: url('path/to/your/image.jpg');
+        background-size: cover; /* Adjust as needed */
+        background-position: center; /* Adjust as needed */
+        background-repeat: no-repeat; /* Adjust as needed */
+    }
+
+    /* Additional styles go here */
+</style>
+<body>
+     <!-- Search input and buttons -->
+    <input type="text" id="locationSearch" placeholder="Search for a location to rent">
+    <button onclick="searchLocation()">Search Location</button>
+    <button onclick="useCurrentLocation()">Use Current Location</button>
+
+    <!-- Map container -->
+    <div id="map" style="width: 100%; height: 500px;"></div>
+
+    <script>
+        var map = new ol.Map({
+    target: 'map',
+    layers: [
+        new ol.layer.Tile({
+            source: new ol.source.OSM(),
+        }),
+    ],
+    view: new ol.View({
+        center: ol.proj.fromLonLat([80.3, 13.1]),
+        zoom: 11,
+    }),
+});
+
+function searchLocation() {
+    var locationInput = document.getElementById('locationSearch').value;
+
+    if (locationInput.trim() !== '') {
+        var apiUrl = 'https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(locationInput);
+
+        fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var lonLat = ol.proj.fromLonLat([parseFloat(data[0].lon), parseFloat(data[0].lat)]);
+                    map.getView().animate({ center: lonLat, zoom: 17 });
+                } else {
+                    alert("Location not found");
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        alert("Please enter a location to rent");
+    }
+}
+
+function useCurrentLocation() {
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var lonLat = ol.proj.fromLonLat([position.coords.longitude, position.coords.latitude]);
+            map.getView().animate({ center: lonLat, zoom: 16 });
+        });
+    } else {
+        alert("Geolocation is not supported by your browser");
+    }
+}
+function getLatLon(event) {
+    var coordinate = event.coordinate;
+
+    // Display the coordinates in the console (you can customize this part)
+    console.log('Latitude:', coordinate[1]);
+    console.log('Longitude:', coordinate[0]);
+}
+
+
+let clickedMarkerLatitude = null;
+let clickedMarkerLongitude = null;
+
+function storeClickedMarkerCoordinates(feature) {
+    // Store the latitude and longitude of the clicked marker in constants
+    clickedMarkerLatitude = feature.getGeometry().getCoordinates()[1];
+    clickedMarkerLongitude = feature.getGeometry().getCoordinates()[0];
+    localStorage.setItem('clickedMarkerLatitude', clickedMarkerLatitude);
+    localStorage.setItem('clickedMarkerLongitude', clickedMarkerLongitude);
+
+}
+map.on('click', function (event) {
+    displayMarkerInfo(event); // Your existing logic for displaying marker info
+    storeClickedMarkerCoordinates(event);
+            // Other logic for displaying information or performing actions
+        });
+
+
+
+function addMarker(lon, lat, markerText) {
+    var marker = new ol.Feature({
+        geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
+        name: markerText,
+    });
+
+    var markerStyle = new ol.style.Style({
+        image: new ol.style.Icon({
+            src: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
+            scale: 0.05,
+        }),
+    });
+
+    marker.setStyle(markerStyle);
+
+    var vectorSource = new ol.source.Vector({
+        features: [marker],
+    });
+
+    var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+    });
+
+    map.addLayer(vectorLayer);
+
+    return marker; // Return the marker for later use
+}
+
+
+function displayMarkerInfo(event) {
+    var feature = map.forEachFeatureAtPixel(event.pixel, function (feature) {
+        return feature;
+    });
+
+    if (feature && feature.get('name')) {
+        var coordinate = feature.getGeometry().getCoordinates();
+        var markerName = feature.get('name');
+
+        var markerInfo = document.createElement('div');
+        markerInfo.id = 'markerInfoPopup';
+        markerInfo.innerHTML = '<b>Marker Name:</b> ' + markerName +  '<br><b>AVAILABILITY:</b> YES' +
+            '<br><b>Price:</b> $50';
+
+        var proceedButton = document.createElement('button');
+        proceedButton.innerHTML = 'Proceed';
+        proceedButton.className = 'button'; // Add the 'button' class
+        proceedButton.onclick = function () {
+            // Call the function to handle the "Proceed" action
+            window.location.href = 'pay.html'
+         };
+
+        var cancelButton = document.createElement('button');
+        cancelButton.innerHTML = 'Cancel';
+        cancelButton.className = 'button'; // Add the 'button' class
+        cancelButton.onclick = function () {
+            var markerInfoPopup = document.getElementById('markerInfoPopup');
+            markerInfoPopup.parentNode.removeChild(markerInfoPopup);
+        };
+
+        markerInfo.appendChild(proceedButton);
+        markerInfo.appendChild(cancelButton);
+
+        document.body.appendChild(markerInfo);
+
+        markerInfo.style.position = 'fixed';
+        markerInfo.style.top = '50%';
+        markerInfo.style.left = '50%';
+        markerInfo.style.transform = 'translate(-50%, -50%)';
+    }
+}
+
+// Example usage:
+var licetMarker = addMarker(80.23, 13.06, 'raj parking areas');
+
+// Add click event listener to the map
+map.on('click', displayMarkerInfo);
+
+
+
+    </script>
+
+
+    
+    
+</body>
+</html>

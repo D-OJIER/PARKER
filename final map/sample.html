@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('bg.png');
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            border: 5px solid #000;
+            box-shadow: 0 0 10px 5px #000;
+            position: relative;
+        }
+
+        #map {
+            width: 80%;
+            height: 60%;
+            margin-top: 50px;
+            border: 8px solid #000;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin: 5px;
+            color: #000;
+        }
+
+        button {
+            background-color: #000;
+            color: #FFD700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .reached-destination-button {
+            background-color: #000;
+            color: #FFD700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        /* Style for OTP popup */
+        #otpPopup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999; /* Ensure it's on top of other elements */
+            background-color: #000;
+            color: #fff;
+            border: 2px solid #000; /* Black border */
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #otpInput {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #otpSubmit {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 10px 20px;
+            margin-top: 10px;
+        }
+
+        /* Style for route instructions */
+        .leaflet-routing-container {
+            color: #000 !important; /* Change route instructions color to black */
+        }
+
+        #otpBox {
+            position: absolute;
+            bottom: 10px; /* Positioned at the bottom */
+            left: 10px; /* Positioned at the left */
+            background-color: #000;
+            color: #FFD700;
+            border: 2px solid #fff; /* White border */
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+    <div class="button-container">
+        <button onclick="useCurrentLocation()">Use Current Location</button>
+        <button onclick="plotRoute()">Plot Route</button>
+        <button onclick="showOtpPopup()" class="reached-destination-button">Reached Destination</button>
+    </div>
+
+    <!-- OTP box -->
+    <div id="otpBox">
+        <h3>OTP</h3>
+        <p id="generatedOTP"></p>
+    </div>
+
+    <!-- OTP Popup -->
+    <div id="otpPopup">
+        <h2>Enter OTP to start your parking time</h2>
+        <input type="text" id="otpInput" placeholder="Enter OTP">
+        <button id="otpSubmit" onclick="startParkingTime()">Submit</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script>
+        var map = L.map('map').setView([51.505, -0.09], 13);
+        var startMarker, endMarker, control;
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        function useCurrentLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var lat = position.coords.latitude;
+                    var lng = position.coords.longitude;
+
+                    if (startMarker) {
+                        map.removeLayer(startMarker);
+                    }
+
+                    startMarker = L.marker([lat, lng]).addTo(map);
+                    map.setView([lat, lng], 16);
+                });
+            } else {
+                alert("Geolocation is not supported by your browser");
+            }
+        }
+
+        function plotRoute() {
+            let str1 = "13.059970018891374";
+            let str2 = "80.23013014106365";
+            var destLat = parseFloat(str1);
+            var destLng = parseFloat(str2);
+
+            if (isNaN(destLat) || isNaN(destLng)) {
+                alert("Please enter valid coordinates");
+                return;
+            }
+
+            if (endMarker) {
+                map.removeLayer(endMarker);
+            }
+
+            endMarker = L.marker([destLat, destLng]).addTo(map);
+
+            if (control !== undefined) {
+                control.removeFrom(map);
+            }
+
+            control = L.Routing.control({
+                waypoints: [
+                    L.latLng(map.getCenter().lat, map.getCenter().lng),
+                    L.latLng(destLat, destLng)
+                ],
+                routeWhileDragging: true
+            }).addTo(map);
+        }
+
+        // Live location feature
+        function onLocationFound(e) {
+            var radius = e.accuracy;
+
+            if (startMarker) {
+                map.removeLayer(startMarker);
+            }
+
+            startMarker = L.marker(e.latlng).addTo(map)
+                .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+            L.circle(e.latlng, radius).addTo(map);
+        }
+
+        function onLocationError(e) {
+            alert(e.message);
+        }
+
+        map.on('locationfound', onLocationFound);
+        map.on('locationerror', onLocationError);
+
+        map.locate({setView: true, maxZoom: 16});
+
+        function generateOTP() {
+            const otp = Math.floor(1000 + Math.random() * 9000);
+            return otp;
+        }
+
+        // Display generated OTP in the box
+        document.getElementById('generatedOTP').innerText = generateOTP();
+
+        function redirectToNextPage() {
+            // Redirect to the next page
+            window.location.href = 'feedback.html'; // Change 'next_page.html' to your desired next page URL
+        }
+
+        function showOtpPopup() {
+            var otpPopup = document.getElementById('otpPopup');
+            otpPopup.style.display = 'block';
+        }
+
+        function startParkingTime() {
+    var enteredOTP = document.getElementById('otpInput').value;
+    // Process the entered OTP as needed
+
+    // Redirect to another page if the OTP is correct
+    if (enteredOTP === document.getElementById('generatedOTP').innerText) {
+        alert('Parking time started!');
+        window.location.href = 'feedback.html'; // Change 'next_page.html' to your desired page URL
+    } else {
+        alert('Invalid OTP. Please try again.');
+        // Handle incorrect OTP scenario here
+    }
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Did we make it easier to find a parking spot?</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-image: url('bg.png'); /* Add the background image */
+            background-color: black;
+            color: silver;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #292929;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            width: 400px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            color: gold;
+        }
+
+        #rating-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .star {
+            color: black;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .star.active {
+            color: gold;
+        }
+
+        .review-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid silver;
+            border-radius: 4px;
+            background-color: #444;
+            color: silver;
+            resize: none;
+            max-width: 100%;
+            overflow-y: auto;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .skip-btn, .submit-btn {
+            width: 48%;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .skip-btn {
+            background-color: #444;
+            color: gold;
+        }
+
+        .submit-btn {
+            background-color: gold;
+            color: black;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            color: gold;
+            border-top: 1px solid gold;
+            padding-top: 20px;
+        }
+
+        .contact-box {
+            border: 1px solid gold;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .contact-icons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .contact-icons span {
+            margin: 0 10px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Did we make it easier to find a parking spot?</h1>
+        <div class="caption">Rate us!</div>
+
+        <div id="rating-container">
+            <span class="star" id="star-1" onclick="setRating(1)">★</span>
+            <span class="star" id="star-2" onclick="setRating(2)">★</span>
+            <span class="star" id="star-3" onclick="setRating(3)">★</span>
+            <span class="star" id="star-4" onclick="setRating(4)">★</span>
+            <span class="star" id="star-5" onclick="setRating(5)">★</span>
+        </div>
+
+        <textarea class="review-input" placeholder="Write your review here..."></textarea>
+
+        <div class="button-container">
+            <button class="skip-btn" onclick="skipReview()">Skip Review</button>
+            <button class="submit-btn" onclick="submitReview()">Submit Review</button>
+        </div>
+
+        <div class="contact-info">
+            <b>Reach out to us</b><br>
+            <div class="contact-box">
+                <div class="contact-icons">
+                    <span onclick="callPhoneNumber('9876543210')">📞: 9876543210</span>
+                    <span onclick="sendEmail('mail@gmail.com')">📧: mail@gmail.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let rating = 0;
+
+        function setRating(value) {
+            rating = value;
+
+            // Reset all stars
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`star-${i}`).classList.remove("active");
+            }
+
+            // Set selected stars
+            for (let i = 1; i <= value; i++) {
+                document.getElementById(`star-${i}`).classList.add("active");
+            }
+        }
+
+        function skipReview() {
+            // Handle skip action
+            alert("Review skipped!");
+        }
+
+        function submitReview() {
+            const reviewText = document.querySelector('.review-input').value.trim();
+
+            if (rating === 0) {
+                alert("Please rate the app before submitting the review.");
+            } else if (reviewText === '') {
+                alert("Please provide your review comments.");
+            } else {
+                // Handle submit action
+                alert(`Review submitted with ${rating} stars!\nReview: ${reviewText}`);
+            }
+        }
+
+        function callPhoneNumber(phoneNumber) {
+            window.location.href = `tel:${phoneNumber}`;
+        }
+
+        function sendEmail(emailAddress) {
+            window.location.href = `mailto:${emailAddress}`;
+        }
+    </script>
+
+</body>
+</html>

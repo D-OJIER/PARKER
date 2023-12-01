@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renter Sign Up</title>
+    <style>
+        body {
+            background-color: black;
+            color: silver;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            border: 2px solid gold;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: inline-block;
+            padding: 5px;
+            text-decoration: none;
+            font-size: 16px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            color: gold;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: gold;
+            color: black;
+        }
+
+        h1 {
+            color: gold;
+        }
+
+        .form-container {
+            text-align: left;
+            margin-top: 20px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-input {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-button {
+            background-color: gold;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: black;
+            color: gold;
+        }
+    </style>
+    <script>
+        function validateForm() {
+            var name = document.getElementById('name').value;
+            var mobile = document.getElementById('mobile').value;
+            var username = document.getElementById('username').value;
+            var createPassword = document.getElementById('createPassword').value;
+            var confirmPassword = document.getElementById('confirmPassword').value;
+            var email = document.getElementById('email').value;
+
+            // Validate name (only alphabets)
+            var nameRegex = /^[a-zA-Z]+$/;
+            if (!name.match(nameRegex)) {
+                alert('Name should only contain alphabets.');
+                return false;
+            }
+
+            // Validate mobile (only numbers)
+            var mobileRegex = /^[0-9]+$/;
+            if (!mobile.match(mobileRegex)) {
+                alert('Mobile should only contain numbers.');
+                return false;
+            }
+
+            // Validate createPassword and confirmPassword
+            if (createPassword !== confirmPassword) {
+                alert('Create Password and Confirm Password should match.');
+                return false;
+            }
+
+            // All validations passed
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <a href="renter.html" class="back-button">&#9666; Back</a>
+        <h1>Renter Sign Up</h1>
+
+        <!-- Sign Up Form -->
+        <div class="form-container">
+            <form action="vehicle-details.html" method="post" onsubmit="return validateForm()">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-input" required>
+
+                <label for="mobile">Mobile Number:</label>
+                <input type="text" id="mobile" name="mobile" class="form-input" required>
+
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" class="form-input" required>
+
+                <label for="createPassword">Create Password:</label>
+                <input type="password" id="createPassword" name="createPassword" class="form-input" required>
+
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
+
+                <label for="email">Email (optional):</label>
+                <input type="email" id="email" name="email" class="form-input">
+
+                <button type="submit" class="form-button">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

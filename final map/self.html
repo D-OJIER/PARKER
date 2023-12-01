@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self Parking</title>
+    <style>
+        body {
+            background-color: black;
+            color: silver;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            border: 2px solid gold;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: gold;
+        }
+
+        .vehicle-container {
+            border: 2px solid gold;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            text-align: left;
+        }
+
+        .checkbox {
+            margin-top: 10px;
+        }
+
+        .park-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            color: gold;
+            background-color: black;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+
+        .park-button:hover {
+            background-color: gold;
+            color: black;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            color: gold;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .back-button:hover {
+            background-color: gold;
+            color: black;
+        }
+
+        .add-vehicle-button {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            color: gold;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .add-vehicle-button:hover {
+            background-color: gold;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="user-dashboard.html" class="back-button">&#9666; Back</a>
+        <h1>Self Parking</h1>
+
+        <div class="vehicle-container">
+            <h2>Container 1</h2>
+            <p>Vehicle: Car</p>
+            <p>Color: Red</p>
+            <p>Reg. No.: 234trew</p>
+            <p>Dimensions: 34*34</p>
+            <input type="checkbox" class="checkbox" id="vehicle1">
+        </div>
+
+        <div class="vehicle-container">
+            <h2>Container 2</h2>
+            <p>Vehicle: Car</p>
+            <p>Color: Red</p>
+            <p>Reg. No.: 234trew</p>
+            <p>Dimensions: 34*34</p>
+            <input type="checkbox" class="checkbox" id="vehicle2">
+        </div>
+
+        <div class="vehicle-container">
+            <h2>Container 3</h2>
+            <p>Vehicle: Car</p>
+            <p>Color: Red</p>
+            <p>Reg. No.: 234trew</p>
+            <p>Dimensions: 34*34</p>
+            <input type="checkbox" class="checkbox" id="vehicle3">
+        </div>
+
+        <button class="park-button" onclick="parkNow()">Park Now</button>
+
+        <!-- Add More Vehicles Button -->
+        <a href="add-vehicle.html" class="add-vehicle-button">&#43; Add More Vehicles</a>
+    </div>
+
+    <script>
+        function parkNow() {
+        const checkboxes = document.querySelectorAll('.checkbox');
+        let checkedCount = 0;
+
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                checkedCount++;
+            }
+        });
+
+        if (checkedCount === 1) {
+            // Proceed with parking
+            window.location.href = 'map.html'; // Change the URL to your desired page
+        } else {
+            alert('Please choose exactly one vehicle to park.');
+        }
+    }
+    </script>
+
+</body>
+</html>
+

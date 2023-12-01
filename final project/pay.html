@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        /* CSS styles for the payment page */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text color */
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #fff; /* White border */
+            border-radius: 5px;
+            background-color: #000; /* Black background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"],
+        button {
+            display: block;
+            width: calc(100% - 22px); /* Adjusted width to fit inside the outline */
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #000; /* Black border */
+            border-radius: 3px;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text color */
+        }
+
+        button {
+            background-color: #43BFC7; /* Light Blue */
+            color: #000; /* Black text color */
+            cursor: pointer;
+        }
+
+        .card-logos {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .card-logos img {
+            width: 60px; /* Increased size */
+            margin: 10px; /* Increased spacing */
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-logos img:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Payment Details</h1>
+        <form id="payment-form">
+            <label for="card-number">Card Number</label>
+            <input type="text" id="card-number" placeholder="Enter card number" required>
+
+            <label for="expiry">Expiry Date</label>
+            <input type="text" id="expiry" placeholder="MM/YY" required>
+
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" placeholder="CVV" required>
+
+            <button type="submit" id="pay-btn">Pay $50 Now</button>
+        </form>
+
+        <div class="card-logos">
+            <img src="paypal.png" alt="PayPal">
+            <img src="mastercard.png" alt="Mastercard">
+            <img src="paytm.png" alt="Paytm">
+            <img src="visa.png" alt="Visa">
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for the payment page
+        document.getElementById('payment-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Add logic for payment processing using a payment gateway
+            // This would typically involve sending data to a secure backend for processing
+            
+            // Redirect to another page after processing
+            window.location.href = 'sample.html'; // Replace 'another_page.html' with your desired URL
+        });
+    </script>
+</body>
+
+</html>

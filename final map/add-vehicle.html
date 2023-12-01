@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Vehicle</title>
+    <style>
+        body {
+            background-color: black;
+            color: silver;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            border: 2px solid gold;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: gold;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            color: gold;
+            background-color: black;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: gold;
+            color: black;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            border: 2px solid gold;
+            border-radius: 5px;
+            color: gold;
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .back-button:hover {
+            background-color: gold;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="self.html" class="back-button">&#9666; Back</a>
+        <h1>Add Vehicle</h1>
+
+        <!-- Form to add new vehicle details -->
+        <form id="addVehicleForm">
+            <label for="vehicleType">Vehicle Type:</label>
+            <input type="text" id="vehicleType" name="vehicleType" required>
+
+            <label for="vehicleColor">Vehicle Color:</label>
+            <input type="text" id="vehicleColor" name="vehicleColor" required>
+
+            <label for="regNumber">Registration Number:</label>
+            <input type="text" id="regNumber" name="regNumber" required>
+
+            <label for="dimensions">Dimensions:</label>
+            <input type="text" id="dimensions" name="dimensions" required>
+
+            <!-- Input for images (you may need to adjust this based on your requirements) -->
+            <label for="image1">Image 1:</label>
+            <input type="file" id="image1" name="image1" accept="image/*" required>
+
+            <label for="image2">Image 2:</label>
+            <input type="file" id="image2" name="image2" accept="image/*" required>
+
+            <button type="button" onclick="saveVehicle()">Save</button>
+        </form>
+    </div>
+
+    <script>
+        function saveVehicle() {
+            // Implement logic to save vehicle details (e.g., send data to server)
+
+            // After saving, navigate back to self.html
+            window.location.href = "self.html";
+        }
+    </script>
+
+</body>
+</html>

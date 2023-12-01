@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details</title>
+    <style>
+        body {
+            background-color: black;
+            color: silver;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 30px;
+            border: 2px solid gold;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 223, 0, 0.8);
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        h1 {
+            color: gold;
+        }
+
+        .form-container {
+            text-align: left;
+            margin-top: 20px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-input {
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-button {
+            background-color: gold;
+            color: black;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .form-button:hover {
+            background-color: black;
+            color: gold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Place Details</h1>
+
+        <!-- Vehicle Details Form -->
+        <div class="form-container">
+            <form action="renter-dashboard.html" method="post">
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" class="form-input" required>
+
+                <label for="dimensions">Dimensions:</label>
+                <input type="text" id="dimensions" name="dimensions" class="form-input" required>
+
+                <label for="image1">Image 1:</label>
+                <input type="file" id="image1" name="image1" accept="image/*" class="form-input" required>
+
+                <label for="image2">Image 2:</label>
+                <input type="file" id="image2" name="image2" accept="image/*" class="form-input" required>
+
+                <button type="submit" class="form-button">Save Spot and Back to Dashboard</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
